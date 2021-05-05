@@ -23,6 +23,7 @@ struct RatingView: View {
     @Binding var rating: Int
     
     
+    
      // ////////////////
     // MARK: PROPERTIES
     
@@ -33,7 +34,7 @@ struct RatingView: View {
      DEFAULT : `nil` for the `offImage` , and a filled star for the `onImage` ;
      if we find `nil` in the `offImage` we’ll use the`onImage`there too .
      */
-    var offImage: Image?
+    // var offImage: Image? OLIVIER : Sorry Paul , I don't think this is necessary .
     var onImage: Image = Image(systemName: "star.fill")
     var offColor: Color = Color.gray
     var onColor: Color = Color.yellow
@@ -49,7 +50,8 @@ struct RatingView: View {
                 Text(label)
             }
             ForEach(1..<maximumRating + 1) { (ratingNumber: Int) in
-                self.setNumberOfRatingImages(to : ratingNumber)
+                // self.image(for : ratingNumber) // PAUL
+                onImage // OLIVIER
                     .foregroundColor(ratingNumber > rating ? offColor : onColor)
                     .onTapGesture {
                         rating = ratingNumber
@@ -63,18 +65,19 @@ struct RatingView: View {
      // //////////////
     //  MARK: METHODS
     
-    func setNumberOfRatingImages(to ratingInput: Int)
+    func image(for ratingInput: Int)
     -> Image {
         
-        // return (ratingCount > rating) ? (offImage ?? onImage) : onImage // OLIVIER
+        // return (ratingInput > rating) ? (offImage ?? onImage) : onImage // OLIVIER
         
         if ratingInput > rating {
-            return offImage ?? onImage
+            //return offImage ?? onImage
+            return onImage // OLIVIER : This works as well . Why the need for an optional offImage ?
             
         } else {
             return onImage
         }
-    }
+    } // PAUL
 }
 
 

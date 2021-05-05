@@ -46,18 +46,38 @@ struct ContentView: View {
     var body: some View {
         
         NavigationView {
-            Text("Count : \(books.count)")
-                .navigationBarTitle(Text("Bookworm"))
-                .navigationBarItems(trailing : Button(action : {
-                    isShowingSheet.toggle()
-                } , label : {
-                    Image(systemName: "plus.circle")
-                        .font(.title)
-                }))
-                .sheet(isPresented: $isShowingSheet) {
-                    AddBookView().environment(\.managedObjectContext ,
-                                              self.managedObjectModel)
+            List {
+                ForEach(books , id : \.self) { (book: Book) in
+                    NavigationLink(destination : Text(book.title ?? "Unknown title")) {
+                        EmojiRatingView(rating : book.rating)
+                            .font(.largeTitle)
+                        VStack(alignment : .leading) {
+                            Text(book.author ?? "Unknown author")
+                                .font(.headline)
+                            Text(book.title ?? "Unknown title")
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                            /**
+                             `NOTE` :
+                             All the properties of our Core Data entity are optional ,
+                             which means we need to make heavy use of `nil coalescing`
+                             in order to make our code work .
+                            */
+                        }
+                    }
                 }
+            }
+            .navigationBarTitle(Text("Bookworm"))
+            .navigationBarItems(trailing : Button(action : {
+                isShowingSheet.toggle()
+            } , label : {
+                Image(systemName: "plus.circle")
+                    .font(.title)
+            }))
+            .sheet(isPresented: $isShowingSheet) {
+                AddBookView().environment(\.managedObjectContext ,
+                                          self.managedObjectModel)
+            }
         }
     }
 }
