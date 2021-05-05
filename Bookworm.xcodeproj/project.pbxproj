@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		093273A52642556800837192 /* AddBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093273A42642556800837192 /* AddBookView.swift */; };
 		09E35FB62642513800227816 /* BookwormApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E35FB52642513800227816 /* BookwormApp.swift */; };
 		09E35FB82642513800227816 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E35FB72642513800227816 /* ContentView.swift */; };
 		09E35FBA2642513B00227816 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09E35FB92642513B00227816 /* Assets.xcassets */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		093273A42642556800837192 /* AddBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookView.swift; sourceTree = "<group>"; };
 		09E35FB22642513800227816 /* Bookworm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bookworm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09E35FB52642513800227816 /* BookwormApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookwormApp.swift; sourceTree = "<group>"; };
 		09E35FB72642513800227816 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -58,6 +60,7 @@
 			children = (
 				09E35FB52642513800227816 /* BookwormApp.swift */,
 				09E35FB72642513800227816 /* ContentView.swift */,
+				093273A42642556800837192 /* AddBookView.swift */,
 				09E35FB92642513B00227816 /* Assets.xcassets */,
 				09E35FBE2642513B00227816 /* Persistence.swift */,
 				09E35FC32642513B00227816 /* Info.plist */,
@@ -148,6 +151,7 @@
 				09E35FC22642513B00227816 /* Bookworm.xcdatamodeld in Sources */,
 				09E35FB82642513800227816 /* ContentView.swift in Sources */,
 				09E35FB62642513800227816 /* BookwormApp.swift in Sources */,
+				093273A52642556800837192 /* AddBookView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
