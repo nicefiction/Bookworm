@@ -1,4 +1,8 @@
 // MARK: ContentView.swift
+/**
+ SOURCE :
+ https://www.hackingwithswift.com/books/ios-swiftui/sorting-fetch-requests-with-nssortdescriptor
+ */
 
 import SwiftUI
 import CoreData
@@ -35,7 +39,23 @@ struct ContentView: View {
      A fetch request reading all the books we have ( so we can test everything worked ) :
      */
     @FetchRequest(entity : Book.entity() ,
-                  sortDescriptors : []) var books: FetchedResults<Book>
+                  sortDescriptors : [
+                    NSSortDescriptor(keyPath : \Book.title ,  ascending : true) ,
+                    NSSortDescriptor(keyPath : \Book.author , ascending : true)
+                    /**
+                    `NOTE` :
+                    You can specify more than one sort descriptor ,
+                    and they will be applied in the order you provide them .
+                    For example ,
+                    if the user added the book “Forever” by Pete Hamill ,
+                    then added “Forever” by Judy Blume
+                    — an entirely different book that just happens to have the same title —
+                    then specifying a second sort field is helpful .
+                        Having a second or even third sort field
+                    has little to no performance impact
+                    unless you have lots of data with similar values .
+                    */
+                  ]) var books: FetchedResults<Book>
     @State private var isShowingSheet: Bool = false
     
 
