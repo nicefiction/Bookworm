@@ -86,9 +86,11 @@ struct ContentView: View {
                         }
                     }
                 }
+                .onDelete(perform : deleteBooks)
             }
             .navigationBarTitle(Text("Bookworm"))
-            .navigationBarItems(trailing : Button(action : {
+            .navigationBarItems(leading : EditButton() ,
+                                trailing : Button(action : {
                 isShowingSheet.toggle()
             } , label : {
                 Image(systemName: "plus.circle")
@@ -99,6 +101,34 @@ struct ContentView: View {
                                           self.managedObjectModel)
             }
         }
+    }
+    
+    
+    
+     // //////////////
+    //  MARK: METHODS
+    
+    func deleteBooks(at offsets: IndexSet) {
+        
+        // books.remove(atOffsets : offsets) // This won't work in the context of Core Data .
+        /**
+         Rather than just removing items from an array
+         we instead need to find the requested object in our fetch request
+         then use it to call delete() on our managed object context .
+         Once all the objects are deleted
+         we can trigger another save of the context ;
+         without that
+         the changes won’t actually be written out to disk .
+         */
+        for offset in offsets {
+            // STEP 1 , Find this book in our fetch request :
+            let book = books[offset]
+            
+            // STEP 2 , Delete it from the context :
+            managedObjectModel.delete(book)
+        }
+        // STEP 3 , Save the context :
+        try? managedObjectModel.save()
     }
 }
 
