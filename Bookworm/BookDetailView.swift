@@ -1,7 +1,23 @@
 // MARK: BookDetailView.swift
 /**
  SOURCE :
- https://www.hackingwithswift.com/books/ios-swiftui/showing-book-details
+ ⭐️ https://www.hackingwithswift.com/books/ios-swiftui/showing-book-details
+ 
+ 💥 https://www.hackingwithswift.com/books/ios-swiftui/using-an-alert-to-pop-a-navigationlink-programmatically
+ /**
+ We are going to add one last feature to our app
+ that deletes whatever book the user is currently looking at .
+ To do this
+ we need to show an alert asking the user if they really want to delete the book ,
+ then delete the book from the current managed object context
+ if that is what they want .
+ Once that is done ,
+ there is no point staying on the current screen
+ because its associated book doesn’t exist any more ,
+ so we are going to pop the current view
+ — remove it from the top of the NavigationView stack ,
+ so we move back to the previous screen .
+ */
  */
 
 import SwiftUI
@@ -18,6 +34,29 @@ struct BookDetailView: View {
     //  MARK: PROPERTIES
     
     var book: Book
+    
+    
+    
+     // ////////////////////////
+    //  MARK: PROPERTY WRAPPERS
+    
+    /**
+     💥 STEP 1 of , Programmatic Alert :
+     A property to hold our Core Data managed object context
+     so we can delete stuff .
+     */
+    @Environment(\.managedObjectContext) var managedObjectContext
+    /**
+     💥 STEP 2 of , Programmatic Alert :
+     A property to hold our presentation mode
+     so we can pop the view off the navigation stack .
+     */
+    @Environment(\.presentationMode) var presentationMode
+    /**
+     💥 STEP 3 of , Programmatic Alert :
+     A property to control whether we are showing the delete confirmation alert or not .
+     */
+    @State private var isShowingDeleteAlert: Bool = false
     
     
     
@@ -44,7 +83,7 @@ struct BookDetailView: View {
                         .background(Color.black.opacity(0.50))
                         .clipShape(Capsule())
                         .padding(10) // OLIVIER
-                        // .offset(x: -5, y: -5) // PAUL , instead of using .padding .
+                        // .offset(x: -5, y: -5) // PAUL , instead of using .padding
                     
                 }
                 Text(book.title ?? "N/A")
@@ -55,8 +94,42 @@ struct BookDetailView: View {
                     .padding()
                 RatingView(ratingByUser : .constant(Int(book.rating)))
             }
-            
+            .navigationBarItems(trailing : Button(action: {
+                isShowingDeleteAlert = true
+            }, label : {
+                Image(systemName: "trash")
+                    .font(.title)
+            }))
+            .alert(isPresented: $isShowingDeleteAlert) {
+                Alert(title : Text("Delete \(book.title ?? "N/A")") ,
+                      message : Text("Are you sure ?") ,
+                      primaryButton : .destructive(Text("Delete") ,
+                                                   action : deleteBook) ,
+                      secondaryButton : .cancel(Text("Cancel")))
+            }
         }
+    }
+    
+    
+    
+     // //////////////
+    //  MARK: METHODS
+    /**
+     💥 STEP 4 of , Programmatic Alert :
+     Write a method that
+     deletes the current book from our managed object context ,
+     and dismisses the current view .
+     */
+    func deleteBook() {
+        
+        managedObjectContext.delete(book)
+        try? managedObjectContext.save()
+        presentationMode.wrappedValue.dismiss()
+        /**
+         `NOTE` :
+         It doesn’t matter that this view is being shown using a navigation link rather than a sheet
+         — we still use the same `presentationMode.wrappedValue.dismiss()` code .
+         */
     }
 }
 
