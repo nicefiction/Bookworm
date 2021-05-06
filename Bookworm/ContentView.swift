@@ -48,7 +48,7 @@ struct ContentView: View {
         NavigationView {
             List {
                 ForEach(books , id : \.self) { (book: Book) in
-                    NavigationLink(destination : Text(book.title ?? "Unknown title")) {
+                    NavigationLink(destination : BookDetailView(book : book)) {
                         EmojiRatingView(rating : book.rating)
                             .font(.largeTitle)
                         VStack(alignment : .leading) {
@@ -93,8 +93,6 @@ struct ContentView_Previews: PreviewProvider {
     
     static var previews: some View {
         
-//        ContentView().environment(\.managedObjectContext ,
-//                                  PersistenceController.preview.container.viewContext)
         ContentView()
     }
 }

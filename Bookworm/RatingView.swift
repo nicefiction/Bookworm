@@ -20,7 +20,7 @@ struct RatingView: View {
      We also need a property to store an `@Binding` integer ,
      so we can report back the user’s selection to whatever is using the star rating .
      */
-    @Binding var rating: Int
+    @Binding var ratingByUser: Int
     
     
     
@@ -28,14 +28,15 @@ struct RatingView: View {
     // MARK: PROPERTIES
     
     var label: String = ""
-    var maximumRating: Int = 5
+    // var maximumRating: Int = 5 // PAUL
+    var maximumRating: Int = 6 // OLIVIER
     /**
      The off and on images dictate the images to use when the star is highlighted or not :
      DEFAULT : `nil` for the `offImage` , and a filled star for the `onImage` ;
      if we find `nil` in the `offImage` we’ll use the`onImage`there too .
      */
     // var offImage: Image? OLIVIER : Sorry Paul , I don't think this is necessary .
-    var onImage: Image = Image(systemName: "star.fill")
+    var onImage: Image = Image(systemName : "star.fill")
     var offColor: Color = Color.gray
     var onColor: Color = Color.yellow
     
@@ -49,12 +50,13 @@ struct RatingView: View {
             if label.isEmpty == false {
                 Text(label)
             }
-            ForEach(1..<maximumRating + 1) { (ratingNumber: Int) in
+            // ForEach(1..<maximumRating + 1) { (ratingNumber: Int) in // PAUL
+            ForEach(1..<maximumRating) { (ratingNumber: Int) in // OLIVIER
                 // self.image(for : ratingNumber) // PAUL
                 onImage // OLIVIER
-                    .foregroundColor(ratingNumber > rating ? offColor : onColor)
+                    .foregroundColor(ratingNumber > ratingByUser ? offColor : onColor)
                     .onTapGesture {
-                        rating = ratingNumber
+                        ratingByUser = ratingNumber
                     }
             }
         }
@@ -70,7 +72,7 @@ struct RatingView: View {
         
         // return (ratingInput > rating) ? (offImage ?? onImage) : onImage // OLIVIER
         
-        if ratingInput > rating {
+        if ratingInput > ratingByUser {
             //return offImage ?? onImage
             return onImage // OLIVIER : This works as well . Why the need for an optional offImage ?
             
@@ -91,7 +93,7 @@ struct RatingView_Previews: PreviewProvider {
     
     static var previews: some View {
         
-        RatingView(rating: .constant(3))
+        RatingView(ratingByUser: .constant(3))
         /**
          `Constant bindings` are bindings that have fixed values ,
          which on the one hand means they can’t be changed in the UI ,

@@ -17,7 +17,6 @@ struct AddBookView: View {
     @State private var genre: String = ""
     @State private var rating: Int = 3
     @State private var review: String = ""
-    // @State private var genreIndex: Int = 0
     
     
     
@@ -25,7 +24,7 @@ struct AddBookView: View {
     //  MARK: PROPERTIES
     
     let genres: [String] = [
-        "Adventure" , "Thriller" , "Fantasy" , "Horror" , "Kids" , "Mystery" , "Poetry" , "Romance"
+        "Thriller" , "Fantasy" , "Horror" , "Kids" , "Mystery" , "Poetry" , "Romance"
     ]
     
     
@@ -52,7 +51,7 @@ struct AddBookView: View {
 //                            Text("\($0)")
 //                        }
 //                    }
-                    RatingView(rating : $rating)
+                    RatingView(ratingByUser : $rating)
                     TextField("Write a review :" , text : $review)
                 }
                 HStack {
