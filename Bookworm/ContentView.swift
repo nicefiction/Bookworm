@@ -76,7 +76,7 @@ struct ContentView: View {
                                 .font(.headline)
                             Text(book.title ?? "Unknown title")
                                 .font(.subheadline)
-                                .foregroundColor(.secondary)
+                                .foregroundColor(book.rating == 1 ? .red : .secondary)
                             /**
                              `NOTE` :
                              All the properties of our Core Data entity are optional ,
