@@ -91,6 +91,7 @@ struct BookDetailView: View {
                 Text(book.review ?? "N/A")
                     .font(.body)
                     .padding()
+                Text("\(book.date ?? Date())" )
                 RatingView(ratingByUser : .constant(Int(book.rating)))
             }
             .navigationBarItems(trailing : Button(action: {
@@ -179,6 +180,7 @@ struct BookDetailView_Previews: PreviewProvider {
         book.rating = 3
         book.review = "Some review"
         book.title = "Some title"
+        book.date = Date()
         /**
          ⭐️`STEP 5 of 5` , Setting up Preview with Core Data :
          Then use the test book
