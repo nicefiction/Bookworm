@@ -62,6 +62,30 @@ struct BookDetailView: View {
      // //////////////////////////
     //  MARK: COMPUTED PROPERTIES
     
+    var formattedDate: String {
+        
+//        let dateComponents =
+//            Calendar.current.dateComponents([.day , .month , .year] ,
+//                                            from : book.date ?? Date())
+//
+//        let dateDay = dateComponents.day ?? 1
+//        let dateMonth = dateComponents.month ?? 1
+//        let dateYear = dateComponents.year ?? 0
+//
+//        return "\(dateDay) / \(dateMonth) / \(dateYear)"
+        
+        let timeFormatter = DateFormatter()
+        timeFormatter.timeStyle = .short
+        let timeString = timeFormatter.string(from : book.date ?? Date())
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .full
+        let dateString = dateFormatter.string(from : book.date ?? Date())
+        
+        return "\(dateString) at \(timeString)"
+    }
+    
+    
     var body: some View {
         
         GeometryReader { (geometryProxy: GeometryProxy) in
@@ -91,8 +115,12 @@ struct BookDetailView: View {
                 Text(book.review ?? "N/A")
                     .font(.body)
                     .padding()
-                Text("\(book.date ?? Date())" )
+                // Text("\(book.date ?? Date())")
+                Text(formattedDate)
+                    .padding(.horizontal)
+                    .foregroundColor(Color.secondary)
                 RatingView(ratingByUser : .constant(Int(book.rating)))
+                    .padding()
             }
             .navigationBarItems(trailing : Button(action: {
                 isShowingDeleteAlert = true
