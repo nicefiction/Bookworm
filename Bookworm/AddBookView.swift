@@ -14,7 +14,7 @@ struct AddBookView: View {
     
     @State private var author: String = ""
     @State private var title: String = ""
-    @State private var genre: String = ""
+    @State private var genre: String = "Romance"
     @State private var rating: Int = 3
     @State private var review: String = ""
     

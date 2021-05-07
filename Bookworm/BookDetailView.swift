@@ -4,7 +4,7 @@
  ⭐️ https://www.hackingwithswift.com/books/ios-swiftui/showing-book-details
  
  💥 https://www.hackingwithswift.com/books/ios-swiftui/using-an-alert-to-pop-a-navigationlink-programmatically
- /**
+
  We are going to add one last feature to our app
  that deletes whatever book the user is currently looking at .
  To do this
@@ -17,7 +17,6 @@
  so we are going to pop the current view
  — remove it from the top of the NavigationView stack ,
  so we move back to the previous screen .
- */
  */
 
 import SwiftUI

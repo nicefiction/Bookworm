@@ -27,7 +27,7 @@ struct ContentView: View {
      Now think about sheets —those are full-screen pop up windows on iOS .
      Yes , one screen might have caused them to appear ,
      but does that mean the presented view can call the original its ancestor ?
-     SwiftUI has an answe r, and it is “no” ,
+     SwiftUI has an answer , and it is “no” ,
      which means that when we present a new view as a sheet
      we need to explicitly pass in a managed object context for it to use .
      As the new AddBookView will be shown as a sheet from ContentView ,
